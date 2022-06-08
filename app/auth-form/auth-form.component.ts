@@ -1,4 +1,17 @@
-import { Component, Output, AfterViewInit, EventEmitter, ContentChildren, QueryList, AfterContentInit, ViewChildren, ViewChild, ChangeDetectorRef, ElementRef } from '@angular/core';
+import { 
+  Component, 
+  Output, 
+  AfterViewInit, 
+  EventEmitter, 
+  ContentChildren, 
+  QueryList, 
+  AfterContentInit, 
+  ViewChildren, 
+  ViewChild, 
+  ChangeDetectorRef, 
+  ElementRef,
+  Renderer
+} from '@angular/core';
 
 import { AuthRememberComponent } from './auth-remember.component';
 import { AuthMessageComponent } from './auth-message.component';
@@ -45,12 +58,19 @@ export class AuthFormComponent implements AfterContentInit, AfterViewInit {
 
   @Output() submitted: EventEmitter<User> = new EventEmitter<User>();
 
-  constructor(private _cd: ChangeDetectorRef) {}
+  constructor(
+    private _cd: ChangeDetectorRef,
+    private _renderer: Renderer
+  ) {}
 
   ngAfterViewInit() {
-     this.email.nativeElement.setAttribute('placeholder', 'Enter your email address');
-     this.email.nativeElement.classList.add('email');
-     this.email.nativeElement.focus();
+    this._renderer.setElementAttribute(this.email.nativeElement, 'placeholder', 'Enter your email address');
+    this._renderer.setElementClass(this.email.nativeElement, 'email', true);
+    this._renderer.invokeElementMethod(this.email.nativeElement, 'focus');
+
+    //  this.email.nativeElement.setAttribute('placeholder', 'Enter your email address');
+    //  this.email.nativeElement.classList.add('email');
+    //  this.email.nativeElement.focus();
      
       if (this.message) {
         this.message.forEach(message => {
