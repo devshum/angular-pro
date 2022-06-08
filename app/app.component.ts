@@ -13,8 +13,7 @@ import { User } from './auth-form/auth-form.interface';
           Join us
         </button>
       </auth-form>
-      <auth-form 
-        (submitted)="loginUser($event)">
+      <auth-form (submitted)="loginUser($event)">
         <h3>Login</h3>
         <auth-remember
           (checked)="rememberUser($event)">
